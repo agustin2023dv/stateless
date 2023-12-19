@@ -1,2 +1,2 @@
 # stateless
-Social media proyect for learninr purposes
+Social media proyect for learning purposes
