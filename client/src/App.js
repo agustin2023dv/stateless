@@ -4,6 +4,7 @@ import Landing from './pages/Landing';
 import SignIn from './pages/SignIn';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/sign-in" component={SignIn} />
+          <Route path="/sign-up" component={SignUp} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
         </Switch>

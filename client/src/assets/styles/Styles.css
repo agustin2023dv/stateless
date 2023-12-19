@@ -24,7 +24,9 @@ p, a{font-size: 1em;}
 
 header, footer{
     width: 100%;
-    background-color: #01949A;
+    background-color: #29A0B1
+
+    ;
     display: flex;
     padding: 1.875em;
 }
@@ -51,9 +53,97 @@ header nav ul li a, footer nav ul li a{
 /* Footer style */
 footer {
 
-    position: fixed; /* Fijar el footer */
-    bottom: 0; /* Colocarlo en la parte inferior */
-    width: 100%; /* Ancho completo */
+    position: fixed; 
+    bottom: 0;
+    width: 100%; 
     padding: 1rem; 
-    text-align: center; /* Centrar el contenido */
+    text-align: center; 
+  }
+
+
+  /*Sign up page style*/
+
+  #sign-up{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ 
+    padding:3em ;
+    border-radius: 0.5em;
+    background-color: #B1D8B7;
+
+  }
+
+  #title-sup{
+    text-align: center;
+    padding-bottom: 1.25em;
+  }
+
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+  }
+  
+  .form-group label {
+    margin-bottom: 0.25em;
+  }
+  
+  .form-group input {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  /* Button styles */
+input[type="submit"] {
+    background-color: #FF8300
+
+
+
+    ; /* Background color */
+    color: #000; /* Text color */
+    padding: 10px 20px; /* Padding (top/bottom, left/right) */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Font weight (bold) */
+  }
+  
+  /* Styles when hovering over the button (hover) */
+  input[type="submit"]:hover {
+    color: aliceblue;
+    background-color: #0056b3; /* Change background color on hover */
+  }
+  
+  /* Styles when clicking on the button (active) */
+  input[type="submit"]:active {
+    background-color: #003b80; /* Change background color when clicked */
+  }
+  
+
+  #header-signup{
+    display: flex;
+    justify-content: flex-end; /* Align children to the right */
+    padding: 1rem;
+
+  }
+  
+  /* "Already got an account?" styles */
+  #got-account {
+    max-width: max-content;
+    padding:2em ;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+  }
+  
+  #got-account h4 {
+    margin-right: 1rem; /* Add some spacing between text and link */
+  }
+  #got-account a {
+    text-decoration: none;
+    font-size: 1.5em;
   }
