@@ -1,0 +1,40 @@
+/*General settings*/
+
+
+*{
+    font-family: 'Afacad', sans-serif;
+font-family: 'Inconsolata', monospace;
+    margin: 0;
+}
+
+
+h1{font-size: 2.25em;}
+h2{font-size: 1.875em;}
+h3{font-size: 1.5em;}
+h4{font-size: 1.25em;}
+p, a{font-size: 1em;}
+
+/*Header style*/
+
+header{
+    display: flex;
+    padding: 1.875em;
+    background-color: aqua;
+}
+
+header nav ul {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+header nav ul li{
+    list-style: none;
+    padding-right: 1.5em;
+}
+
+header nav ul li a{
+    font-size: 1.75em;
+    text-decoration: none;
+}
