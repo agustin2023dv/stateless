@@ -7,7 +7,13 @@ font-family: 'Inconsolata', monospace;
     margin: 0;
 }
 
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
 
+body{ min-height: 100vh;}
 h1{font-size: 2.25em;}
 h2{font-size: 1.875em;}
 h3{font-size: 1.5em;}
@@ -16,25 +22,38 @@ p, a{font-size: 1em;}
 
 /*Header style*/
 
-header{
+header, footer{
+    width: 100%;
+    background-color: #01949A;
     display: flex;
     padding: 1.875em;
-    background-color: aqua;
 }
 
-header nav ul {
+header nav ul, footer nav ul{
     text-align: center;
     align-items: center;
     justify-content: center;
     display: flex;
 }
 
-header nav ul li{
+header nav ul li, footer nav ul li{
     list-style: none;
     padding-right: 1.5em;
 }
 
-header nav ul li a{
+header nav ul li a, footer nav ul li a{
     font-size: 1.75em;
     text-decoration: none;
 }
+
+
+
+/* Footer style */
+footer {
+
+    position: fixed; /* Fijar el footer */
+    bottom: 0; /* Colocarlo en la parte inferior */
+    width: 100%; /* Ancho completo */
+    padding: 1rem; 
+    text-align: center; /* Centrar el contenido */
+  }
