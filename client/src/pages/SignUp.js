@@ -1,28 +1,62 @@
 import '../assets/styles/Styles.css';
+import { useHistory } from 'react-router-dom';
 
-import { auth } from '../firebase';
+import { collection, doc, setDoc, query, where,getDocs } from 'firebase/firestore';
+
+import { auth,db } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+
+  const history = useHistory();
+
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+  
     const emailValue = email;
     const passwordValue = password;
+    const usernameValue = username; 
 
+    const userQuery = query(collection(db, 'user'), where('username', '==', usernameValue));
+    
     try {
-      // Create a user account in Firebase
-      await createUserWithEmailAndPassword(auth, emailValue, passwordValue);
+      // Verify if the username is already in use 
+   
 
-      // If registration is successful, you can perform actions here, such as redirecting the user to another page.
-      console.log('Registration successful');
 
+      const querySnapshot = await getDocs(userQuery);
+
+
+
+    if (!querySnapshot.empty) {
+      // If there's another user with that username 
+      querySnapshot.forEach((doc) => {
+        alert("username already taken");
+      });
+      return;
+    }
+
+  
+      // Create a new user 
+      const userCredential = await createUserWithEmailAndPassword(auth, emailValue, passwordValue);
+  
+      // Store the data in a new document which belongs to the "user" collection in our firestore 
+      const user = userCredential.user;
+      await setDoc(doc(collection(db, 'user'), user.uid), {
+        uid: user.uid,
+        username: usernameValue,
+        email: emailValue,
+      });
+  
+      // If successful, redirect to landing page
+      history.push('/');
     } catch (error) {
-      // Handle registration errors
+      // Mistake handler 
       console.error('Error registering:', error.message);
     }
   };
@@ -49,7 +83,9 @@ function SignUp() {
               type="text"
               id="fusername"
               name="fusername"
-              placeholder='Enter a username'
+              placeholder='Enter an username'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -83,11 +119,12 @@ function SignUp() {
               type="password"
               id="lcpassword"
               name="lcpassword"
-              placeholder='Enter the same password again'
+              placeholder='Confirm password'
             />
           </div>
 
           <input type="submit" value="Create account" />
+
         </form>
       </div>
     </>
