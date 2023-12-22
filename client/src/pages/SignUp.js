@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom';
 
 import { collection, doc, setDoc, query, where,getDocs } from 'firebase/firestore';
 
-import { auth,db, gProvider } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth,db,  signInWithGooglePopup } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
+
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -14,8 +15,9 @@ function SignUp() {
 
   const history = useHistory();
 
-
+  
   const handleSignUp = async (e) => {
+
     e.preventDefault();
   
     const emailValue = email;
@@ -27,16 +29,15 @@ function SignUp() {
 
     try {
       // Verify if the username is already in use 
-  
-
       const userQuerySnapshot = await getDocs(userQuery);
+      // Verify if the email is already in use 
       const emailQuerySnapshot = await getDocs(emailQuery);
 
 
     if (!userQuerySnapshot.empty) {
       // If there's another user with that username 
       userQuerySnapshot.forEach((doc) => {
-        alert("username already taken");
+        alert("Username already taken");
       });
       return;
     }
@@ -47,7 +48,6 @@ function SignUp() {
       return;
     }
 
-  
       // Create a new user 
       const userCredential = await createUserWithEmailAndPassword(auth, emailValue, passwordValue);
   
@@ -63,9 +63,29 @@ function SignUp() {
       history.push('/');
     } catch (error) {
       // Mistake handler 
-      console.error('Error registering:', error.message);
+      alert('Error registering:', error.message);
     }
   };
+
+
+  const logGoogleUser = async () => {
+  
+    try{
+      const response = await signInWithGooglePopup();
+      alert(response);
+    
+    
+    
+      // If successful, redirect to landing page
+      history.push('/');
+    }
+    catch(error){
+      // Mistake handler 
+      alert('Error registering:', error.message);
+    }
+    
+  }
+
 
   return (
     <>
@@ -131,6 +151,9 @@ function SignUp() {
 
           <input type="submit" value="Create account" />
 
+          <div>
+            <button onClick={logGoogleUser}>Sign In With Google</button>
+          </div>
         </form>
       </div>
     </>
