@@ -127,11 +127,16 @@ function SignUp() {
 
   return (
     <>
-      <div id='header-signup'>
+
+<div id="container">
+
+      <header id='header-signup'>
         <div id="got-account">
-          <h4>Already got an account?</h4><a href="/sign-up">Sign in!</a>
+            <h4>Already got an account?</h4><a href="/sign-up">Sign in!</a>
         </div>
-      </div>
+
+      </header>
+
 
       <div id="sign-up">
 
@@ -189,12 +194,20 @@ function SignUp() {
             />
           </div>
 
-          <input type="submit" value="Create account" />
+          <div id='buttons-su'>
 
-          <div>
-            <button className='button-su' onClick={logGoogleUser}>Sign In With Google</button>
+            <button id='button-su' type="submit">Create account</button>
+
+
+            
+
+            <button type="button" class="login-with-google-btn"onClick={logGoogleUser} >
+              Sign in with Google
+            </button>
           </div>
+
         </form>
+      </div>
       </div>
     </>
   );

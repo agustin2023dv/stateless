@@ -18,14 +18,14 @@ h1{font-size: 2.25em;}
 h2{font-size: 1.875em;}
 h3{font-size: 1.5em;}
 h4{font-size: 1.25em;}
-p, a{font-size: 1em;}
+button,p, a{font-size: 1em;}
+
 
 /*Header style*/
 
 header, footer{
     width: 100%;
     background-color: #29A0B1
-
     ;
     display: flex;
     padding: 1.875em;
@@ -63,13 +63,26 @@ footer {
 
   /*Sign up page style*/
 
+  #container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Asegura que el contenedor cubra al menos toda la altura de la pantalla */
+    margin-top: 2em; /* Agrega espacio arriba del formulario */
+  }
+
+
+
   #sign-up{
-    position: absolute;
+
+    margin-top: 2em; 
+    width: 20em;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
- 
-    padding:3em ;
+    height: fit-content;
+
+    padding:2em ;
     border-radius: 0.5em;
     background-color: #B1D8B7;
 
@@ -97,38 +110,74 @@ footer {
     border-radius: 4px;
   }
 
+
+  /*Already got an account? section- Sign up*/
+
+  #header-signup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height:max-content;
+    background-color: #ffffff; /* Cambia el color de fondo según tus preferencias */
+    padding: 0.5em; /* Agrega un poco de espacio alrededor del encabezado */
+    border: 1px solid #ccc;
+
+  }
   /* Button styles */
-input[type="submit"] {
-    background-color: #FF8300
 
 
 
-    ; /* Background color */
-    color: #000; /* Text color */
-    padding: 10px 20px; /* Padding (top/bottom, left/right) */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    font-size: 16px; /* Font size */
-    font-weight: bold; /* Font weight (bold) */
-  }
+/* CSS */
+#button-su {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  font-weight: bold;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+/*  font-size: 18px;*/
+}
+
+#button-su:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+#button-su:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+#button-su:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
   
-  /* Styles when hovering over the button (hover) */
-  input[type="submit"]:hover {
-    color: aliceblue;
-    background-color: #0056b3; /* Change background color on hover */
-  }
-  
-  /* Styles when clicking on the button (active) */
-  input[type="submit"]:active {
-    background-color: #003b80; /* Change background color when clicked */
-  }
-  
-
+/*Sign up header*/
   #header-signup{
     display: flex;
     justify-content: flex-end; /* Align children to the right */
-    padding: 1rem;
+    padding: .5rem;
 
   }
   
@@ -149,48 +198,59 @@ input[type="submit"] {
     font-weight: 700;
   }
 
-/* CSS */
-.button-su {
-  align-items: center;
-  background-clip: padding-box;
-  background-color: #fa6400;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
+/* Button sign up with google */
+
+#buttons-su{
+align-self: flex-start;
+  
+  margin-top: 1.15em;
+
 }
 
-.button-su:hover,
-.button-su:focus {
-  background-color: #fb8332;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-}
 
-.button-su:hover {
-  transform: translateY(-1px);
-}
+/*sign in with google button*/
 
-.button-su:active {
-  background-color: #c85000;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-  transform: translateY(0);
+.login-with-google-btn {
+  transition: background-color .3s, box-shadow .3s;
+    margin-top: 1.5em;
+    
+  padding: 12px 16px 12px 42px;
+
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+  
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,
+  "Fira Sans","Droid Sans","Helvetica Neue",sans-serif;*/
+  font-weight: bold;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+  
+  &:hover {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
+  }
+  
+  &:active {
+    background-color: #eeeeee;
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 
+      0 -1px 0 rgba(0, 0, 0, .04),
+      0 2px 4px rgba(0, 0, 0, .25),
+      0 0 0 3px #c8dafc;
+  }
+  
+  &:disabled {
+    filter: grayscale(100%);
+    background-color: #ebebeb;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+    cursor: not-allowed;
+  }
 }
