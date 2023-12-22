@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import { collection, doc, setDoc, query, where,getDocs } from 'firebase/firestore';
 
-import { auth,db } from '../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth,db, gProvider } from '../firebase';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 
 function SignUp() {
@@ -23,21 +23,27 @@ function SignUp() {
     const usernameValue = username; 
 
     const userQuery = query(collection(db, 'user'), where('username', '==', usernameValue));
-    
+    const emailQuery = query(collection(db, 'user'), where('email', '==', emailValue));
+
     try {
       // Verify if the username is already in use 
-   
+  
+
+      const userQuerySnapshot = await getDocs(userQuery);
+      const emailQuerySnapshot = await getDocs(emailQuery);
 
 
-      const querySnapshot = await getDocs(userQuery);
-
-
-
-    if (!querySnapshot.empty) {
+    if (!userQuerySnapshot.empty) {
       // If there's another user with that username 
-      querySnapshot.forEach((doc) => {
+      userQuerySnapshot.forEach((doc) => {
         alert("username already taken");
       });
+      return;
+    }
+    if(!emailQuerySnapshot.empty){
+      emailQuerySnapshot.forEach((doc)=>{
+        alert("Email already in use");
+      })
       return;
     }
 
