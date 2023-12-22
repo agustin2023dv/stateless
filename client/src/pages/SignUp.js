@@ -1,4 +1,6 @@
 import '../assets/styles/Styles.css';
+import statelessLogo75 from '../assets/img/statelessLogo75.png';
+
 import { useHistory } from 'react-router-dom';
 
 
@@ -131,6 +133,12 @@ function SignUp() {
 <div id="container">
 
       <header id='header-signup'>
+
+        <div>
+          <a href='/'><img src={statelessLogo75}  alt='Stateless logo'></img></a>
+        </div>
+
+
         <div id="got-account">
             <h4>Already got an account?</h4><a href="/sign-up">Sign in!</a>
         </div>

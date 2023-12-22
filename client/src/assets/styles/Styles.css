@@ -68,8 +68,8 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Asegura que el contenedor cubra al menos toda la altura de la pantalla */
-    margin-top: 2em; /* Agrega espacio arriba del formulario */
+    min-height: 100vh; 
+    margin-top: 2em; 
   }
 
 
@@ -114,20 +114,25 @@ footer {
   /*Already got an account? section- Sign up*/
 
   #header-signup {
+    display: flex;
+
+  align-items: center;
     position: fixed;
-    top: 0;
-    right: 0;
+   top: 0;
+
     height:max-content;
-    background-color: #ffffff; /* Cambia el color de fondo según tus preferencias */
-    padding: 0.5em; /* Agrega un poco de espacio alrededor del encabezado */
+    background-color: #ffffff;
+    padding: 0.5em; 
     border: 1px solid #ccc;
 
   }
+
+
   /* Button styles */
 
 
 
-/* CSS */
+/* Sign up button*/
 #button-su {
   align-items: center;
   appearance: none;
@@ -176,8 +181,11 @@ footer {
 /*Sign up header*/
   #header-signup{
     display: flex;
-    justify-content: flex-end; /* Align children to the right */
-    padding: .5rem;
+    justify-content: space-between; /* Align children to the right */
+    padding-bottom: .5rem;
+    padding-top: .5em;
+    padding-right: 4em;
+    padding-left: 4em;
 
   }
   
