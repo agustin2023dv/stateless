@@ -1,6 +1,9 @@
 import '../assets/styles/Styles.css';
 import { useHistory } from 'react-router-dom';
 
+
+import { validateUsername,validatePassword,passwordsMatch, validateEmptyUsername } from '../validation';
+
 import { collection, doc, setDoc, query, where,getDocs } from 'firebase/firestore';
 
 import { auth,db,  signInWithGooglePopup } from '../firebase';
@@ -11,6 +14,7 @@ import { useState } from 'react';
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cPassword, setCPassword] = useState('');
   const [username, setUsername] = useState('');
 
   const history = useHistory();
@@ -23,6 +27,36 @@ function SignUp() {
     const emailValue = email;
     const passwordValue = password;
     const usernameValue = username; 
+    const cPasswordValue = cPassword;  
+    
+
+    // Validation
+
+    if(validateEmptyUsername(usernameValue)){
+      alert('You must enter an username');
+      return;
+    }
+
+    if (!validateUsername(usernameValue)) {
+      setUsername('');
+      alert('Username length must have between 6 and 12 characters');
+      return;
+    }
+
+    if (!validatePassword(passwordValue)) {
+      setPassword('');
+      setCPassword('');
+      alert('Password length must have between 8 and 15 characters');
+      return;
+    }
+
+    if (!passwordsMatch(passwordValue, cPasswordValue)) {
+      setPassword('');
+      setCPassword('');
+      alert('Passwords must match');
+      return;
+    }
+    
 
     const userQuery = query(collection(db, 'user'), where('username', '==', usernameValue));
     const emailQuery = query(collection(db, 'user'), where('email', '==', emailValue));
@@ -75,7 +109,7 @@ function SignUp() {
       alert(response);
     
     
-    
+
       // If successful, redirect to landing page
       history.push('/');
     }
@@ -146,6 +180,8 @@ function SignUp() {
               id="lcpassword"
               name="lcpassword"
               placeholder='Confirm password'
+              value={cPassword}
+              onChange={(e) => setCPassword(e.target.value)}
             />
           </div>
 
