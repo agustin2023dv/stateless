@@ -7,7 +7,7 @@ import { validateUsername,validatePassword,passwordsMatch, validateEmptyUsername
 import { collection, doc, setDoc, query, where,getDocs } from 'firebase/firestore';
 
 import { auth,db,  signInWithGooglePopup } from '../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { useState } from 'react';
 
 
@@ -92,6 +92,11 @@ function SignUp() {
         username: usernameValue,
         email: emailValue,
       });
+
+
+      // Email verification
+
+      await sendEmailVerification(userCredential.user);
   
       // If successful, redirect to landing page
       history.push('/');
@@ -107,7 +112,6 @@ function SignUp() {
     try{
       const response = await signInWithGooglePopup();
       alert(response);
-    
     
 
       // If successful, redirect to landing page
@@ -188,7 +192,7 @@ function SignUp() {
           <input type="submit" value="Create account" />
 
           <div>
-            <button onClick={logGoogleUser}>Sign In With Google</button>
+            <button className='button-su' onClick={logGoogleUser}>Sign In With Google</button>
           </div>
         </form>
       </div>

@@ -3,7 +3,7 @@ export const validateUsername = (username) => {
   };
 
 export const validateEmptyUsername = (username) =>{
-    return username.length == 0;
+    return username.length === 0;
 }
   
   export const validatePassword = (password) => {
