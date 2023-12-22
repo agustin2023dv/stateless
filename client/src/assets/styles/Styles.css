@@ -74,7 +74,7 @@ footer {
 
 
 
-  #sign-up{
+  #sign-up, #sign-in-form{
 
     margin-top: 2em; 
     width: 20em;
@@ -113,7 +113,7 @@ footer {
 
   /*Already got an account? section- Sign up*/
 
-  #header-signup {
+  #header-signup, #header-signin {
     display: flex;
 
   align-items: center;
@@ -261,4 +261,13 @@ align-self: flex-start;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
     cursor: not-allowed;
   }
+}
+
+
+/*Sign in form*/
+
+#sign-in-form{
+  background-color: #B1D8B7;
+
+
 }
