@@ -2,16 +2,27 @@ import '../assets/styles/Styles.css';
 import statelessLogo75 from '../assets/img/statelessLogo75.png';
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth,db} from '../firebase'; // Import auth from your firebase.js file
+import { auth,db} from '../firebase'; 
 import { useHistory } from 'react-router-dom';
 import { getDocs,query,collection,where } from 'firebase/firestore';
-
+import PasswordResetModal from './PasswordResetModal';
 
 function SignIn() {
   const [userID, setUserID] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleReset = () => {
+    // Abre el modal cuando se hace clic en "Forgot password?"
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    // Cierra el modal
+    setIsModalOpen(false);
+  };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -52,36 +63,7 @@ function SignIn() {
   };
   
 
-/*  const handleSignIn = async (e) => { 
-    e.preventDefault();
 
-    const userIDValue = userID;
-    try {
-      
-      const userQuery = query(collection(db, 'user'), where('username', '==', userIDValue));
-      const userQuerySnapshot = await getDocs(userQuery);
-
-      const userDocument = userQuerySnapshot.docs[0].data();
-      const userEmail = userDocument.email;
-
-      
-      // Use the state variables instead of accessing e.target
-      if(await signInWithEmailAndPassword(auth, userID, password)){
-        // Redirect to the home page on successful login
-        history.push('/');
-      } 
-      else if(userEmail){ //Here we try to login with the username 
-
-        await signInWithEmailAndPassword(auth, userEmail, password);
-        // Redirect to the home page on successful login
-        history.push('/');
-      }
-      
-    } catch (err) {
-      // Handle authentication errors
-      alert(err.message);
-    }
-  }*/
 
   return (
     <div id="container">
@@ -122,7 +104,9 @@ function SignIn() {
           />
         </div>
 
-        <a href='/'>Forgot password?</a>
+        <p onClick={handleReset}>Forgot password?</p>
+        <PasswordResetModal isOpen={isModalOpen} onClose={handleCloseModal} />
+
 
         <div id='buttons-su'>
           <button id='button-su' type="submit">

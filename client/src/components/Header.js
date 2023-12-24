@@ -7,6 +7,7 @@ function Header() {
       <nav>
         <ul>
           <li><a href="/">Home</a></li>
+          <li><a href="/my-profile">My Profile</a></li>
           <li><a href="/sign-up">Sign up</a></li>
           <li><a href="/sign-in">Sign in</a></li>
 
