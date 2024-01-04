@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { auth} from '../firebase';
+import { useHistory } from 'react-router-dom';
+import { auth } from '../firebase';
 
 function MyProfile() {
-  const [loggedUser, setUser] = useState(null);
-
+  const [user, setUser] = useState(null);
+  const history = useHistory();
   
-  const user = auth.currentUser;
   useEffect(() => {
     // Use Firebase Authentication to access the logged-in user
-    const unsubscribe = auth.onAuthStateChanged((loggedUser) => {
-      if (user) {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
         // User is logged in
-        setUser(loggedUser);
+        setUser(authUser);
       } else {
         // User is not logged in
         setUser(null);
@@ -22,23 +22,30 @@ function MyProfile() {
       // Clean up the listener when the component unmounts
       unsubscribe();
     };
-  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+  const handleSignOut = () => {
+
+    auth.signOut().then(() => {
+      history.push('/');
+    });
+  };
 
   return (
     <>
-
-      {loggedUser ? (
+      {user ? (
         <div>
-          <h1>Hello, {loggedUser.displayName || loggedUser.email}!</h1>
-        
-          <p>Email: {loggedUser.email}</p>
-          <p>User ID: {loggedUser.uid}</p>
-     
+          <h1>Hello, {user.displayName || user.email}!</h1>
+          <p>Email: {user.email}</p>
+   
+            {/* Sign out button */}
+            <button onClick={handleSignOut}>Sign Out</button>
         </div>
       ) : (
         <div>
           <h1>Hello, Guest</h1>
-          {/* Display content for guests */}
+
         </div>
       )}
     </>
