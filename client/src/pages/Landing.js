@@ -1,108 +1,88 @@
 import '../assets/styles/Styles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useState } from 'react'; // Import useState
-import { db, auth, storage } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import Firebase Storage functions
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { db, storage } from '../firebase'; // Import your Firebase config
+import { v4 as uuidv4 } from 'uuid'; // Import UUID library for generating unique IDs
 
-function Landing() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageFile, setImageFile] = useState(null);
 
-  const addPostToFirestore = async (title, description, photo, postId, uid) => {
-    try {
-      const postCollection = collection(db, 'post');
+function Landing({ user }) {
 
-      const docRef = await addDoc(postCollection, {
-        title,
-        description,
-        photo,
-        postId,
-        uid,
-        createdAt: serverTimestamp(),
-      });
+  const history = useHistory();
 
-      console.log('Post added with ID: ', docRef.id);
-      return docRef.id;
-    } catch (error) {
-      console.error('Error adding post: ', error);
-      throw error;
-    }
+  const [postDetails, setPostDetails] = useState({
+    postId: uuidv4(), // Generate a unique ID immediately
+    title: "",
+    // author: "",
+    description: "",
+  });
+
+  const handleChange = (e) => {
+    e.persist();
+    setPostDetails((oldState) => ({
+      ...oldState,
+      [e.target.name]: e.target.value
+    }));
   };
+  
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  const addPost = async postDetails => {
+    const postTime = Date.now();
 
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
+    await db.collection("post").add({
+      ...postDetails,
+      time: 
+      new Intl.DateTimeFormat('en-US',{year:'numeric',month:'long',day:'2-digit',hour:'2-digit',minute:'2-digit'}).format(postTime)
+    })
+  }
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
-  };
-
-  const uploadImageToStorage = async (imageFile) => {
-    try {
-      const storageRef = ref(storage, `images/${Date.now()}_${imageFile.name}`);
-
-      await uploadBytes(storageRef, imageFile);
-
-      const downloadURL = await getDownloadURL(storageRef);
-
-      return downloadURL;
-    } catch (error) {
-      console.error('Error uploading image: ', error);
-      throw error;
-    }
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-
-    if (imageFile) {
-      const imageUrl = await uploadImageToStorage(imageFile);
-
-      const userUID = auth.currentUser.uid;
-
-      const postId = generateUniquePostId();
-
-      await addPostToFirestore(title, description, imageUrl, postId, userUID);
+  
+    try {
+      await addPost(postDetails);
+      history.push('/');
+    } catch (error) {
+      console.error('Error adding post:', error);
+      // Display error to the user
     }
-  };
-
-  const generateUniquePostId = () => {
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random() * 1000);
-    return `${timestamp}_${random}`;
-  };
-
+  }
   return (
     <>
-      <Header />
+    
+    <Header/>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title" onChange={handleTitleChange} value={title} />
+
+   
+
+
+    <form id='post' onSubmit={handleSubmit}>
+
+        <div>
+          <label>Title</label>
+          <input type="text" value={setPostDetails.title} onChange={handleChange} />
         </div>
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" onChange={handleDescriptionChange} value={description}></textarea>
+        <div>
+          <label>Description</label>
+          <textarea value={setPostDetails.description} onChange={handleChange} />
         </div>
-        <div className="form-group">
-          <label htmlFor="image">Image</label>
-          <input type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} />
+
+        <div>
+          <label>Image</label>
+          <input type="file" accept="images/*" />
         </div>
+
         <button type="submit">Upload</button>
-      </form>
 
-      <Footer />
+    </form>
+
+    <Footer/>
     </>
   );
 }
+
+
+
 
 export default Landing;
